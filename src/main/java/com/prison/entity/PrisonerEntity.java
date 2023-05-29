@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "prisoners")
@@ -19,17 +21,17 @@ public class PrisonerEntity {
 	private String Name;
 	private Long TermOfImprisonment;  //Срок заключения
 	
-	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE}, fetch = FetchType.EAGER)
+	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE}, fetch = FetchType.EAGER)
 	@JoinColumn(name = "crimeEntity") 
     private CrimeEntity crime; 
-	@ManyToOne(optional=false, cascade=CascadeType.ALL)
+	@OneToOne(optional=false, cascade=CascadeType.ALL)
 	@JoinColumn (name="prisoner_id")
 	private CellEntity cell;
 	public String getName() {
 		return Name;
 	}
-	public void setName(String name) {
-		Name = name;
+	public void setName(String Name) {
+		Name = Name;
 	}
 	public Long getTermOfImprisonment() {
 		return TermOfImprisonment;
@@ -54,6 +56,15 @@ public class PrisonerEntity {
 	}
 	public void setCell (CellEntity cell) {
 		this.cell = cell;
+	}
+	public PrisonerEntity(Long id, String Name, Long TermOfImprisonment, CrimeEntity crime, CellEntity cell)
+	{
+		this.id = id;
+		this.Name = Name;
+		this.TermOfImprisonment = TermOfImprisonment;
+		this.crime = crime;
+		this.cell = cell;
+		
 	}
 	
 

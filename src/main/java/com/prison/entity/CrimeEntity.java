@@ -16,7 +16,7 @@ public class CrimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String article; //Статья уголовного кодекса
-    private String date ; //количество заключенных
+    private String date ; //Дата преступления
     @OneToOne
     private PrisonerEntity prisoner;
 	public String getArticle() {
@@ -42,6 +42,14 @@ public class CrimeEntity {
 	}
 	public void setPrisoner (PrisonerEntity prisoner) {
 		this.prisoner = prisoner;
+	}
+	public CrimeEntity(Long id, String article, String date, PrisonerEntity prisoner)
+	{
+		this.id = id;
+		this.article = article;
+		this.date = date;
+		this.prisoner = prisoner;
+		
 	}
      
 
